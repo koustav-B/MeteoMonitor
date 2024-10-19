@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>weather</title>
+  <title>MeteoMonitor</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
@@ -13,38 +13,301 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+  <style>
+    body {
+      background: linear-gradient(135deg, #00bcd4, #2196f3);
+      color: white;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    nav {
+      padding: 15px 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-title {
+      font-size: 3em;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-shadow: 2px 2px 5px #000;
+      color: #ffeb3b;
+    }
+
+    .hero-section {
+      padding: 70px 0;
+      background-color: rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .hero-title {
+      font-size: 4.5em;
+      margin-bottom: 20px;
+      font-weight: bold;
+      animation: slideIn 1s ease-out;
+    }
+
+    .hero-subtitle {
+      font-size: 1.8em;
+      font-weight: 300;
+      margin-bottom: 50px;
+      animation: fadeIn 2s ease-in;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+      margin-top: 40px;
+      transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    }
+
+    form:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 50px rgba(255, 235, 59, 0.3);
+    }
+
+    input[type="text"] {
+      height: 60px;
+      border-radius: 5px;
+      border: none;
+      padding: 12px;
+      font-size: 1.4em;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 15px #ffeb3b;
+      outline: none;
+    }
+
+    .input-group-btn .btn {
+      height: 60px;
+      border-radius: 30px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      font-size: 1.4em;
+      transition: all 0.4s ease;
+    }
+
+    .input-group-btn .btn:hover {
+      background-color: #e65100;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .weather-info {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      margin-top: 50px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    .weather-info h1 {
+      color: #ffeb3b;
+      font-size: 3.5em;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .weather-info h3,
+    .weather-info h5 {
+      color: #fff9c4;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .weather-info h3 {
+      font-size: 2.2em;
+    }
+
+    .weather-info h5 {
+      font-size: 1.7em;
+    }
+
+    .features-section {
+      padding: 60px 0;
+      text-align: center;
+      background-color: #2196f3;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .features-title {
+      color: #ffeb3b;
+      font-size: 3.5em;
+      font-weight: bold;
+      margin-bottom: 50px;
+    }
+
+    .features-list {
+      font-size: 1.6em;
+      color: white;
+    }
+
+    .testimonial-section {
+      background: linear-gradient(135deg, #f50057, #ff4081);
+      padding: 60px 0;
+      color: white;
+      text-align: center;
+      animation: fadeInUp 2s ease;
+    }
+
+    .testimonial-section h2 {
+      font-size: 3.5em;
+      margin-bottom: 40px;
+    }
+
+    .testimonial {
+      background: rgba(255, 255, 255, 0.3);
+      padding: 40px;
+      margin: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .testimonial:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .testimonial p {
+      font-size: 1.7em;
+    }
+
+    footer {
+      margin-top: 50px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    footer a {
+      color: #ffeb3b;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <nav class="row" style="background: grey; color: white;">
-    <div align="center"><h1 class="col-md-3 text-center">Weather Detector</h1></div>
-  </nav>
-  <br />
-  <br />
-  <center class="row">
-    <form action="" method="post" class="col-md-6 col-md-offset-3">
-      {% csrf_token %}
-      <div class="input-group">
-        <input type="text" class="form-control" name="city" placeholder="Search">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </div>
-        <form>
-  </center>
-  <div class="row">
-    {% if data.country_code %}
-    <div class="col-md-6 col-md-offset-3">
-      <h1>{{city}}</h1>
-      <h3>country code : {{data.country_code}}</h1>
-        <h5>coordinate : {{data.coordinate}}</h5>
-        <h5>temp : {{data.temp}}</h5>
-        <h5>pressure : {{data.pressure}} </h5>
-        <h5>humidity : {{data.humidity}}</h5>
+  <nav class="row">
+    <div align="center">
+      <h1 class="col-md-12 text-center nav-title">MeteoMonitor</h1>
     </div>
-    {% endif %}
+  </nav>
+
+  <div class="hero-section">
+    <h1 class="hero-title">Know the Weather Instantly</h1>
+    <p class="hero-subtitle">Get real-time updates on the weather anywhere in the world</p>
   </div>
+
+  <div class="container">
+    <center class="row">
+      <form action="" method="post" class="col-md-6 col-md-offset-3" id="weatherForm">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="text" class="form-control" name="city" id="city" placeholder="Enter city name">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </center>
+
+    <div class="row">
+      {% if data.country_code %}
+      <div class="col-md-6 col-md-offset-3 weather-info">
+        <h1>{{ city }}</h1>
+        <h3>Country Code: {{ data.country_code }}</h3>
+        <h5>Coordinates: {{ data.coordinate }}</h5>
+        <h5>Temperature: {{ data.temp }} &#8451;</h5>
+        <h5>Pressure: {{ data.pressure }} hPa</h5>
+        <h5>Humidity: {{ data.humidity }}%</h5>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2 class="features-title">Why Choose Our Weather Detector?</h2>
+    <ul class="features-list">
+      <li>Accurate real-time weather updates</li>
+      <li>Detailed temperature, pressure, and humidity info</li>
+      <li>Global coverage for any location</li>
+    </ul>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonial-section">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial">
+      <p>"The accuracy and speed of the Weather Detector are simply amazing. I can't imagine checking the weather anywhere
+        else!" - Sarah R.</p>
+    </div>
+    <div class="testimonial">
+      <p>"It's simple, efficient, and always accurate. Highly recommend for daily use." - Mike D.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Developed by Koustav Biswas | <a href="#">Terms & Conditions</a></p>
+  </footer>
 </body>
 
 </html>
